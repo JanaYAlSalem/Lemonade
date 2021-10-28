@@ -161,16 +161,19 @@ class MainActivity : AppCompatActivity() {
         val textAction: TextView = findViewById(R.id.text_action)
         if (lemonadeState == SELECT) {
             // Click to select a lemon!
-            
+            TextCH?.setText("Click to select a lemon!")
             ImgCH.setImageResource(R.drawable.lemon_tree)
         } else if (lemonadeState == SQUEEZE) {
             // Click to juice the lemon!
+            TextCH?.setText("Click to juice the lemon!")
             ImgCH.setImageResource(R.drawable.lemon_squeeze)
         } else if (lemonadeState == DRINK) {
             //Click to drink your lemonade!
+            TextCH?.setText("Click to drink your lemonade!")
             ImgCH.setImageResource(R.drawable.lemon_drink)
         } else if (lemonadeState == RESTART) {
             // Click to start again!
+            TextCH?.setText("Click to start again!")
             ImgCH.setImageResource(R.drawable.lemon_restart)
         }
 
