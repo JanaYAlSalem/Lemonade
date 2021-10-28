@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
         // TODO: use a conditional statement like 'if' or 'when' to track the lemonadeState
         if (lemonadeState == SELECT) { // SELECT: To SQUEEZE
             lemonadeState = SQUEEZE
-            //pick(lemonSize)
+            lemonSize = lemonTree.pick()
             squeezeCount = 0
         }
         if (lemonadeState == SQUEEZE) { // SQUEEZE:Increment squeezeCount by 1, decrement lemonSize by 1
@@ -121,16 +121,18 @@ class MainActivity : AppCompatActivity() {
             lemonSize - 1
             if (lemonSize == 0) {
                 lemonadeState == DRINK
+                lemonSize - 1
             } // end sup if
             else lemonadeState == SQUEEZE
         }
         if (lemonadeState == DRINK) { // DRINK:RESTART state and set the lemonSize to -1.
             lemonadeState == RESTART
-            lemonSize - 1
+
         }
         if (lemonadeState == RESTART) { // RESTART: Transition back to the SELECT state.
             lemonadeState == SELECT
         }
+        setViewElements()
 
         //  when the the image is clicked we may need to change state to the next step in the
         //  lemonade making progression (or at least make some changes to the current state in the
