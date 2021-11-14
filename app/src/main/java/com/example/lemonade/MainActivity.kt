@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity() {
      *  JANA ALSALEM
      */
 
-    val ImgCH: ImageView = findViewById(R.id.imageView)
-    val TextCH: TextView = findViewById(R.id.text_action)
+    //val ImgCH: ImageView = findViewById(R.id.image_lemon_state)
+
 
     /**
      * DO NOT ALTER ANY VARIABLE OR VALUE NAMES OR THEIR INITIAL VALUES.
@@ -64,11 +64,11 @@ class MainActivity : AppCompatActivity() {
     private var lemonTree = LemonTree() // object of LemonTree
     private var lemonImage: ImageView? = null
 
-
+    lateinit var TextCH: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        TextCH = findViewById(R.id.text_action)
         // === DO NOT ALTER THE CODE IN THE FOLLOWING IF STATEMENT ===
         if (savedInstanceState != null) {
             lemonadeState = savedInstanceState.getString(LEMONADE_STATE, "select")
@@ -80,11 +80,10 @@ class MainActivity : AppCompatActivity() {
         lemonImage = findViewById(R.id.image_lemon_state)
         setViewElements()
         lemonImage!!.setOnClickListener {
-            // TODO: call the method that handles the state when the image is clicked
             clickLemonImage()
         }
         lemonImage!!.setOnLongClickListener {
-            // TODO: replace 'false' with a call to the function that shows the squeeze count
+            showSnackbar()
             false
         }
         clickLemonImage()
@@ -107,8 +106,7 @@ class MainActivity : AppCompatActivity() {
             lemonadeState = SQUEEZE
             lemonSize = lemonTree.pick()
             squeezeCount = 0
-        }
-        else if (lemonadeState == SQUEEZE) { // SQUEEZE:Increment squeezeCount by 1, decrement lemonSize by 1
+        } else if (lemonadeState == SQUEEZE) { // SQUEEZE:Increment squeezeCount by 1, decrement lemonSize by 1
             squeezeCount++
             lemonSize--
             if (lemonSize == 0) {
@@ -116,14 +114,12 @@ class MainActivity : AppCompatActivity() {
                 lemonSize - 1
             } // end sup if
             else lemonadeState = SQUEEZE
-        }
-        else if (lemonadeState == DRINK) { // DRINK:RESTART state and set the lemonSize to -1.
+        } else if (lemonadeState == DRINK) { // DRINK:RESTART state and set the lemonSize to -1.
             lemonadeState = RESTART
             lemonSize = -1
 
-        }
-        else if (lemonadeState == RESTART) { // RESTART: Transition back to the SELECT state.
-            lemonadeState == SELECT
+        } else if (lemonadeState == RESTART) { // RESTART: Transition back to the SELECT state.
+            lemonadeState = SELECT
         }
         setViewElements() // call setViewElements to show the change
 
@@ -138,25 +134,27 @@ class MainActivity : AppCompatActivity() {
            DRINK -> ImgCH.setImageResource(R.drawable.lemon_drink)      : Click to juice the lemon!
            RESTART -> ImgCH.setImageResource(R.drawable.lemon_restart)  : Click to start again!
        */
+        // TextCH?.setText("Click to select a lemon!")
+
 
         val textAction: TextView = findViewById(R.id.text_action)
         if (lemonadeState == SELECT) {
             // Click to select a lemon!
-            TextCH?.setText("Click to select a lemon!")
-           // textAction?.setText(R.string.lemon_select)
-            ImgCH.setImageResource(R.drawable.lemon_tree)
+            // TextCH?.setText("Click to select a lemon!")
+            textAction?.setText(R.string.lemon_select)
+            lemonImage?.setImageResource(R.drawable.lemon_tree)
         } else if (lemonadeState == SQUEEZE) {
-            // Click to juice the lemon!
-            TextCH?.setText("Click to juice the lemon!")
-            ImgCH.setImageResource(R.drawable.lemon_squeeze)
+            // Click to juice the lemon! || lemon_squeeze
+            textAction?.setText(R.string.lemon_squeeze)
+            lemonImage?.setImageResource(R.drawable.lemon_squeeze)
         } else if (lemonadeState == DRINK) {
-            //Click to drink your lemonade!
-            TextCH?.setText("Click to drink your lemonade!")
-            ImgCH.setImageResource(R.drawable.lemon_drink)
+            //Click to drink your lemonade! || lemon_drink
+            textAction?.setText(R.string.lemon_drink)
+            lemonImage?.setImageResource(R.drawable.lemon_drink)
         } else if (lemonadeState == RESTART) {
-            // Click to start again!
-            TextCH?.setText("Click to start again!")
-            ImgCH.setImageResource(R.drawable.lemon_restart)
+            // Click to start again! || lemon_empty_glass
+            textAction?.setText(R.string.lemon_empty_glass)
+            lemonImage?.setImageResource(R.drawable.lemon_restart)
         }
 
     } // end setViewElements to show the change
